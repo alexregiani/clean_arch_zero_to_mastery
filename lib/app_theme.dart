@@ -27,16 +27,16 @@ class AppTheme {
   // *****************
   static const TextStyle _lightHeadingText = TextStyle(
       color: _lightTextColorPrimary,
-      fontFamily: "Rubik",
+      fontFamily: 'Rubik',
       fontSize: 20,
-      fontWeight: FontWeight.bold);
+      fontWeight: FontWeight.bold,);
 
   static const TextStyle _lightBodyText = TextStyle(
       color: _lightTextColorPrimary,
-      fontFamily: "Rubik",
+      fontFamily: 'Rubik',
       fontStyle: FontStyle.italic,
       fontWeight: FontWeight.bold,
-      fontSize: 16);
+      fontSize: 16,);
 
   static const TextTheme _lightTextTheme = TextTheme(
     displayLarge: _lightHeadingText,
@@ -64,7 +64,7 @@ class AppTheme {
   static final ThemeData lightTheme = ThemeData(
     scaffoldBackgroundColor: _lightPrimaryColor,
     appBarTheme: const AppBarTheme(
-        color: _appbarColorLight, iconTheme: IconThemeData(color: _iconColor)),
+        color: _appbarColorLight, iconTheme: IconThemeData(color: _iconColor),),
     colorScheme: ColorScheme.light(
       primary: _lightPrimaryColor,
       onPrimary: _lightOnPrimaryColor,
@@ -79,7 +79,7 @@ class AppTheme {
     scaffoldBackgroundColor: _darkPrimaryColor,
     appBarTheme: AppBarTheme(
         color: _appbarColorDark,
-        iconTheme: const IconThemeData(color: _iconColor)),
+        iconTheme: const IconThemeData(color: _iconColor),),
     colorScheme: ColorScheme.dark(
       primary: _darkPrimaryColor,
       secondary: _accentColor,

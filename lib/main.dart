@@ -1,14 +1,13 @@
-import 'package:clean_arch_zero_to_mastery/presentation/core/services/theme_service.dart';
+import 'package:clean_arch_zero_to_mastery/app_theme.dart';
+import 'package:clean_arch_zero_to_mastery/presentation/core/bloc/theme_bloc.dart';
 import 'package:clean_arch_zero_to_mastery/presentation/pages/advice_page/advice_page.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-
-import 'app_theme.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 void main() {
   runApp(
-    ChangeNotifierProvider(
-      create: (context) => ThemeService(),
+    BlocProvider(
+      create: (context) => ThemeBloc(),
       child: const MyApp(),
     ),
   );
@@ -19,11 +18,10 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<ThemeService>(
-      builder: (context, themeService, child) {
+    return BlocBuilder<ThemeBloc, ThemeChangeState>(
+      builder: (context, state) {
         return MaterialApp(
-          themeMode:
-              themeService.isDarkModeOn ? ThemeMode.dark : ThemeMode.light,
+          themeMode: state.isDarkMode ? ThemeMode.dark : ThemeMode.light,
           theme: AppTheme.lightTheme,
           darkTheme: AppTheme.darkTheme,
           home: const AdvicePage(),

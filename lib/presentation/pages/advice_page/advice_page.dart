@@ -1,7 +1,6 @@
+import 'package:clean_arch_zero_to_mastery/presentation/core/bloc/theme_bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-
-import '../../core/services/theme_service.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AdvicePage extends StatelessWidget {
   const AdvicePage({super.key});
@@ -14,11 +13,13 @@ class AdvicePage extends StatelessWidget {
         title: Text('Advices', style: themeData.textTheme.headlineLarge),
         actions: [
           Switch(
-            value: Provider.of<ThemeService>(context).isDarkModeOn,
+            value: BlocProvider.of<ThemeBloc>(context).state.isDarkMode,
             onChanged: (value) {
-              Provider.of<ThemeService>(context, listen: false).toggleTheme();
+              BlocProvider.of<ThemeBloc>(context).add(
+                ThemeEvent(isDarkMode: value),
+              );
             },
-          )
+          ),
         ],
       ),
     );
