@@ -12,11 +12,15 @@ class AdvicePage extends StatelessWidget {
       appBar: AppBar(
         title: Text('Advices', style: themeData.textTheme.headlineLarge),
         actions: [
-          Switch(
-            value: BlocProvider.of<ThemeBloc>(context).state.isDarkMode,
-            onChanged: (value) {
-              BlocProvider.of<ThemeBloc>(context).add(
-                ThemeEvent(isDarkMode: value),
+          BlocBuilder<ThemeBloc, ThemeState>(
+            builder: (context, state) {
+              return Switch(
+                value: state.isDarkMode,
+                onChanged: (value) {
+                  BlocProvider.of<ThemeBloc>(context).add(
+                    ThemeEvent(isDarkMode: value),
+                  );
+                },
               );
             },
           ),

@@ -1,20 +1,20 @@
 part of 'theme_bloc.dart';
 
-class ThemeChangeState extends Equatable {
-  const ThemeChangeState({required this.isDarkMode});
+class ThemeState extends Equatable {
+  const ThemeState({required this.isDarkMode});
 
-  factory ThemeChangeState.initial() {
-    return const ThemeChangeState(isDarkMode: false);
+  factory ThemeState.initial() {
+    return const ThemeState(isDarkMode: false);
   }
   final bool isDarkMode;
 
-  ThemeChangeState copyWith({bool? darkMode}) {
-    return ThemeChangeState(isDarkMode: darkMode ?? isDarkMode);
+  ThemeState copyWith({bool? darkMode}) {
+    return ThemeState(isDarkMode: darkMode ?? isDarkMode);
   }
 
   @override
   String toString() {
-    return 'ThemeChangeState{isDarkMode: $isDarkMode}';
+    return 'ThemeState{isDarkMode: $isDarkMode}';
   }
 
   @override

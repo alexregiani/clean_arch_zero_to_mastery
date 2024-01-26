@@ -5,5 +5,5 @@ class ThemeEvent extends Equatable {
 
   final bool isDarkMode;
   @override
-  List<Object> get props => [];
+  List<Object> get props => [isDarkMode];
 }
