@@ -1,6 +1,22 @@
+import 'package:clean_arch_zero_to_mastery/presentation/core/widgets/error_message.dart';
 import 'package:clean_arch_zero_to_mastery/presentation/core/widgets/my_app_bar.dart';
+import 'package:clean_arch_zero_to_mastery/presentation/pages/advice_page/bloc/advice_bloc.dart';
+import 'package:clean_arch_zero_to_mastery/presentation/pages/advice_page/widgets/advice_bubble.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
+
+class AdvicePageWrapperProvider extends StatelessWidget {
+  const AdvicePageWrapperProvider({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (context) => AdviceBloc(),
+      child: const AdvicePage(),
+    );
+  }
+}
 
 class AdvicePage extends StatelessWidget {
   const AdvicePage({super.key});
@@ -8,25 +24,44 @@ class AdvicePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: MyAppBar(),
+      appBar: const MyAppBar(),
       body: Padding(
         padding: const EdgeInsets.all(30),
-        child: Center(
-          child: Column(
-            children: [
-              const Expanded(
-                child: Center(
-                  child: Text('Your advice is waiting for you'),
+        child: Column(
+          children: [
+            Expanded(
+              child: Center(
+                child: BlocBuilder<AdviceBloc, AdviceState>(
+                  builder: (context, state) {
+                    if (state is AdviceInitial) {
+                      return const Text('Your advice is waiting for you');
+                    } else if (state is AdviceLoadingState) {
+                      return const CircularProgressIndicator(
+                        color: Colors.red,
+                      );
+                    } else if (state is AdviceErrorState) {
+                      return ErrorMessage(error: state.error);
+                    } else if (state is AdviceLoadedState) {
+                      return AdviceBubble(
+                        advice: state.advice,
+                      );
+                    } else {
+                      return const SizedBox();
+                    }
+                  },
                 ),
               ),
-              const Gap(20),
-              TextButton(
-                style: TextButton.styleFrom(backgroundColor: Colors.red),
-                onPressed: () {},
-                child: const Text('get advice'),
-              )
-            ],
-          ),
+            ),
+            const Gap(20),
+            TextButton(
+              style: TextButton.styleFrom(backgroundColor: Colors.red),
+              onPressed: () {
+                BlocProvider.of<AdviceBloc>(context)
+                    .add(AdviceRequestedEvent());
+              },
+              child: const Text('get advice'),
+            ),
+          ],
         ),
       ),
     );
