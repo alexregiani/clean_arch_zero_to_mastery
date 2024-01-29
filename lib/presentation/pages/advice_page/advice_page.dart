@@ -1,3 +1,6 @@
+import 'package:clean_arch_zero_to_mastery/data/data_sources/advice_data_source_implementation.dart';
+import 'package:clean_arch_zero_to_mastery/data/repository/advice_repository_implementation.dart';
+import 'package:clean_arch_zero_to_mastery/domain/use_cases/advice_use_cases.dart';
 import 'package:clean_arch_zero_to_mastery/presentation/core/widgets/error_message.dart';
 import 'package:clean_arch_zero_to_mastery/presentation/core/widgets/my_app_bar.dart';
 import 'package:clean_arch_zero_to_mastery/presentation/pages/advice_page/bloc/advice_bloc.dart';
@@ -12,7 +15,13 @@ class AdvicePageWrapperProvider extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => AdviceBloc(),
+      create: (context) => AdviceBloc(
+        adviceUseCases: AdviceUseCases(
+          adviceRepository: AdviceRepositoryImplementation(
+            adviceDataSource: AdviceDataSourceImplementation(),
+          ),
+        ),
+      ),
       child: const AdvicePage(),
     );
   }
@@ -43,7 +52,7 @@ class AdvicePage extends StatelessWidget {
                       return ErrorMessage(error: state.error);
                     } else if (state is AdviceLoadedState) {
                       return AdviceBubble(
-                        advice: state.advice,
+                        advice: state.advice.toString(),
                       );
                     } else {
                       return const SizedBox();

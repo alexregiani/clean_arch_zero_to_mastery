@@ -12,7 +12,7 @@ class AdviceInitial extends AdviceState {
 class AdviceLoadedState extends AdviceState {
   const AdviceLoadedState({required this.advice});
 
-  final String advice;
+  final AdviceEntity advice;
   @override
   List<Object> get props => [advice];
 }
